@@ -27,12 +27,33 @@ class DataController: ObservableObject {
             container.persistentStoreDescriptions.first?.url = URL(filePath: "/dev/null")
         }
         
+        // Without this, users would have to exit and relaunch app for new data to sync
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        
+        // Tells CoreData to merge changes by property, rather than just replacing
+        // the entire cloud object with the local object. Allows granular data updates
+        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        
+        // One more step is necessary to ensure data sync works well when there are
+        // simultaneous changes from multiple devices.
+        // This line notifies when there are any changes anywhere in the world to our data.
+        container.persistentStoreDescriptions.first?.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        
+        // When a change to the data is detected, this calls remoteStoreChanged, which announces
+        // the change to SwiftUI to update the UI.
+        NotificationCenter.default.addObserver(forName: .NSPersistentStoreRemoteChange, object: container.persistentStoreCoordinator, queue: .main, using: remoteStoreChanged)
+        
         // Creates and loads data store
         container.loadPersistentStores { storeDescription, error in
             if let error {
                 fatalError("Fatal error loading store: \(error.localizedDescription)")
             }
         }
+    }
+    
+    // Announces when changes occur to data
+    func remoteStoreChanged(_ notification: Notification) {
+        objectWillChange.send()
     }
     
     func createSampleData() {
@@ -42,7 +63,7 @@ class DataController: ObservableObject {
         
         for i in 1...5 {
             // When creating instances of data types like Tag and Issue, we specify
-            // which context they are made inside. This helps CoreData know how to save them.
+            // which context they are made inside. This helps CoreData know how to save them
             let tag = Tag(context: viewContext)
             tag.id = UUID()
             tag.name = "Tag \(i)"
