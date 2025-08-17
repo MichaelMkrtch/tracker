@@ -13,6 +13,8 @@ class DataController: ObservableObject {
     @Published var selectedFilter: Filter? = Filter.all
     @Published var selectedIssue: Issue?
     
+    private var saveTask: Task<Void, Error>?
+    
     static var preview: DataController = {
         let dataController = DataController(inMemory: true)
         dataController.createSampleData()
@@ -89,6 +91,22 @@ class DataController: ObservableObject {
     func save() {
         if container.viewContext.hasChanges {
             try? container.viewContext.save()
+        }
+    }
+    
+    func queueSave() {
+        saveTask?.cancel()
+        
+        // @MainActor tells the Task that the code block must run on the MainActor
+        // While CoreData is designed to run in a multithreaded environment, a managed
+        // object should not be passed between threads
+        saveTask = Task { @MainActor in
+            print("Queueing save")
+            // Canceling a task causes .sleep to throw, so we need try here. It also exits
+            // this block without calling save, achieving the desired behavior
+            try await Task.sleep(for: .seconds(3))
+            save()
+            print("Saved")
         }
     }
     
