@@ -27,6 +27,8 @@ struct IssueView: View {
                 
                 Picker("Priority", selection: $issue.priority) {
                     // CoreData uses Int16 for the issue priority
+                    // issue.priority isn't wrapped with a helper because it can expose us to
+                    // subtle runtime bugs that the compiler won't catch due to tag accepting generics
                     Text("Low").tag(Int16(0))
                     Text("Medium").tag(Int16(1))
                     Text("High").tag(Int16(2))
