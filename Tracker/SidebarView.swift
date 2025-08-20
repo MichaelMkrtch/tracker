@@ -47,6 +47,12 @@ struct SidebarView: View {
                                 } label: {
                                     Label("Rename", systemImage: "pencil")
                                 }
+                                
+                                Button(role: .destructive) {
+                                    delete(filter)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
                     }
                 }
@@ -79,6 +85,7 @@ struct SidebarView: View {
             TextField("New name", text: $tagName)
         }
         .sheet(isPresented: $showingAwards, content: AwardsView.init)
+        .navigationTitle("Filters")
     }
     
     func rename(_ filter: Filter) {
@@ -92,6 +99,15 @@ struct SidebarView: View {
         dataController.save()
     }
     
+    func delete(_ filter: Filter) {
+        // We can determine which filters are user-created by whether they
+        // have tags attached to them (smart filters do not).
+        guard let tag = filter.tag else { return }
+        dataController.delete(tag)
+        dataController.save()
+    }
+    
+    // Delete method for swipe to delete
     func delete(_ offsets: IndexSet) {
         for offset in offsets {
             let item = tags[offset]

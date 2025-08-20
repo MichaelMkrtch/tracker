@@ -122,6 +122,10 @@ class DataController: ObservableObject {
     }
     
     func save() {
+        // If save() is called, we might as well cancel any queued save tasks
+        // since this function call will perform the save.
+        saveTask?.cancel()
+        
         if container.viewContext.hasChanges {
             try? container.viewContext.save()
         }
@@ -237,10 +241,11 @@ class DataController: ObservableObject {
         let request = Issue.fetchRequest()
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         // sortType.rawValue reads out the underlying raw value in the enum
-        request.sortDescriptors = [NSSortDescriptor(key: sortType.rawValue, ascending: sortNewestFirst)]
+        request.sortDescriptors = [NSSortDescriptor(key: sortType.rawValue,
+                                                    ascending: sortNewestFirst)]
         
         let allIssues = (try? container.viewContext.fetch(request)) ?? []
-        return allIssues.sorted()
+        return allIssues
     }
     
     func newTag() {
