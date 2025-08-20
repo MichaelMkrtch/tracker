@@ -34,33 +34,7 @@ struct IssueView: View {
                     Text("High").tag(Int16(2))
                 }
                 
-                Menu {
-                    ForEach(issue.issueTags) { tag in
-                        Button {
-                            issue.removeFromTags(tag)
-                        } label: {
-                            // checkmark image not supported on macOS
-                            Label(tag.tagName, systemImage: "checkmark")
-                        }
-                    }
-                    
-                    let otherTags = dataController.missingTags(from: issue)
-                    
-                    if otherTags.isEmpty == false {
-                        Divider()
-                        
-                        Section("Add Tags") {
-                            ForEach(otherTags) { tag in
-                                Button(tag.tagName) {
-                                    issue.addToTags(tag)
-                                }
-                            }
-                        }
-                    }
-                } label: {
-                    Text(issue.issueTagsList)
-                        .multilineTextAlignment(.leading)
-                }
+                TagsMenuView(issue: issue)
             }
             
             Section {
@@ -81,25 +55,7 @@ struct IssueView: View {
         // This is another step meant to ensure user data is never lost.
         .onSubmit(dataController.save)
         .toolbar {
-            Menu {
-                Button {
-                    // Using title rather than issueTitle since UIPasteboard.general.string
-                    // accepts an optional string
-                    UIPasteboard.general.string = issue.issueTitle
-                } label: {
-                    Label("Copy Issue Title", systemImage: "doc.on.doc")
-                }
-                
-                Button {
-                    issue.completed.toggle()
-                    dataController.save()
-                } label: {
-                    Label(issue.completed ? "Reopen Issue" : "Close Issue",
-                          systemImage: "bubble.left.and.exclamationmark.bubble.right")
-                }
-            } label: {
-                Label("Actions", systemImage: "ellipsis.circle")
-            }
+            IssueViewToolbar(issue: issue)
         }
     }
 }
