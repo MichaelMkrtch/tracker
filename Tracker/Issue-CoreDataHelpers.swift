@@ -45,9 +45,9 @@ extension Issue {
     
     var issueStatus: String {
         if completed {
-            return "Closed"
+            return String(localized: "Closed")
         } else {
-            return "Open"
+            return String(localized: "Open")
         }
     }
     
