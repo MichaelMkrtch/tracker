@@ -14,7 +14,7 @@
 		4CBE196E2E4EB05A0032F2A0 /* Exceptions for "Tracker" folder in "Tracker" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Configuration/Info.plist,
 			);
 			target = 4C995F802E3EAC7800EA19CF /* Tracker */;
 		};
@@ -285,7 +285,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Tracker/Tracker.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tracker/Configuration/Tracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6LS8X5CWAH;
@@ -293,7 +293,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/Configuration/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -326,7 +326,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Tracker/Tracker.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tracker/Configuration/Tracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6LS8X5CWAH;
@@ -334,7 +334,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/Configuration/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
