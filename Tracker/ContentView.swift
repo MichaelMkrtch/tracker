@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var dataController: DataController
-    
+
     var body: some View {
         List(selection: $dataController.selectedIssue) {
             ForEach(dataController.issuesForSelectedFilter()) { issue in
@@ -18,9 +18,10 @@ struct ContentView: View {
             .onDelete(perform: delete)
         }
         .navigationTitle("Issues")
-        .searchable(text: $dataController.filterText,
-                    tokens: $dataController.filterTokens,
-                    prompt: "Filter issues, or type # to add tags"
+        .searchable(
+            text: $dataController.filterText,
+            tokens: $dataController.filterTokens,
+            prompt: "Filter issues, or type # to add tags"
         ) { tag in
             Text(tag.tagName)
         }

@@ -12,7 +12,7 @@ struct TrackerApp: App {
     // App will create and own this. It will stay alive for the duration of the app.
     @StateObject var dataController = DataController()
     @Environment(\.scenePhase) var scenePhase
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationSplitView {
@@ -25,7 +25,7 @@ struct TrackerApp: App {
                 // Allows access to data controller throughout app
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController)
-                .onChange(of: scenePhase) { oldPhase, newPhase in
+                .onChange(of: scenePhase) { _, newPhase in
                     if newPhase != .active {
                         dataController.save()
                     }
