@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "639FE2A5-35E6-42CB-8463-00E1BF2BBD9D",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Tracker.xcodeproj",
+      "identifier" : "4C995F802E3EAC7800EA19CF",
+      "name" : "Tracker"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Tracker.xcodeproj",
+        "identifier" : "4C10477C2E58D669007CE1B5",
+        "name" : "TrackerTests"
+      }
+    }
+  ],
+  "version" : 1
+}
