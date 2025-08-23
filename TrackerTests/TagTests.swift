@@ -59,4 +59,3 @@ var fixture: CoreDataFixture
     }
 
 }
-
